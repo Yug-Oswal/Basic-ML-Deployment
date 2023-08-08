@@ -33,4 +33,20 @@ def give_inference():
     if img.mode != 'RGB':
         img = img.convert('RGB')
 
+    target_size = (150, 150)
+
+    img_resized = img.resize(target_size)
+
+    x = np.array(img_resized)
+    x /= 255.0
     
+    x = np.expand_dims(x, axis = 0)
+
+    output = model.predict(x)
+
+    if (output[0] > 0.5):
+        return render_template('predict.html', prediction = "dog")
+    else:
+        return render_template('predict.html', prediction = "cat")
+
+
