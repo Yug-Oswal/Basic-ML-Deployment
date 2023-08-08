@@ -38,11 +38,11 @@ def give_inference():
     img_resized = img.resize(target_size)
 
     x = np.array(img_resized)
-    x /= 255.0
+    img_final = x / 255
     
-    x = np.expand_dims(x, axis = 0)
+    img_final = np.expand_dims(img_final, axis = 0)
 
-    output = model.predict(x)
+    output = model.predict(img_final)
 
     if (output[0] > 0.5):
         return render_template('predict.html', prediction = "dog")
